@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TrafficRouteImport } from './routes/traffic'
 import { Route as SimulationRouteImport } from './routes/simulation'
 import { Route as ResearchRouteImport } from './routes/research'
 import { Route as LiveRouteImport } from './routes/live'
@@ -19,6 +20,11 @@ import { Route as ComparisonRouteImport } from './routes/comparison'
 import { Route as CameraRouteImport } from './routes/camera'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TrafficRoute = TrafficRouteImport.update({
+  id: '/traffic',
+  path: '/traffic',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SimulationRoute = SimulationRouteImport.update({
   id: '/simulation',
   path: '/simulation',
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/live': typeof LiveRoute
   '/research': typeof ResearchRoute
   '/simulation': typeof SimulationRoute
+  '/traffic': typeof TrafficRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/live': typeof LiveRoute
   '/research': typeof ResearchRoute
   '/simulation': typeof SimulationRoute
+  '/traffic': typeof TrafficRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/live': typeof LiveRoute
   '/research': typeof ResearchRoute
   '/simulation': typeof SimulationRoute
+  '/traffic': typeof TrafficRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/live'
     | '/research'
     | '/simulation'
+    | '/traffic'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +132,7 @@ export interface FileRouteTypes {
     | '/live'
     | '/research'
     | '/simulation'
+    | '/traffic'
   id:
     | '__root__'
     | '/'
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/live'
     | '/research'
     | '/simulation'
+    | '/traffic'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -145,10 +157,18 @@ export interface RootRouteChildren {
   LiveRoute: typeof LiveRoute
   ResearchRoute: typeof ResearchRoute
   SimulationRoute: typeof SimulationRoute
+  TrafficRoute: typeof TrafficRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/traffic': {
+      id: '/traffic'
+      path: '/traffic'
+      fullPath: '/traffic'
+      preLoaderRoute: typeof TrafficRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/simulation': {
       id: '/simulation'
       path: '/simulation'
@@ -225,6 +245,7 @@ const rootRouteChildren: RootRouteChildren = {
   LiveRoute: LiveRoute,
   ResearchRoute: ResearchRoute,
   SimulationRoute: SimulationRoute,
+  TrafficRoute: TrafficRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
