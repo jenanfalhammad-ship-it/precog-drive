@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SimulationRouteImport } from './routes/simulation'
+import { Route as LiveRouteImport } from './routes/live'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CameraRouteImport } from './routes/camera'
 import { Route as IndexRouteImport } from './routes/index'
@@ -17,6 +18,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const SimulationRoute = SimulationRouteImport.update({
   id: '/simulation',
   path: '/simulation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LiveRoute = LiveRouteImport.update({
+  id: '/live',
+  path: '/live',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/camera': typeof CameraRoute
   '/dashboard': typeof DashboardRoute
+  '/live': typeof LiveRoute
   '/simulation': typeof SimulationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/camera': typeof CameraRoute
   '/dashboard': typeof DashboardRoute
+  '/live': typeof LiveRoute
   '/simulation': typeof SimulationRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/camera': typeof CameraRoute
   '/dashboard': typeof DashboardRoute
+  '/live': typeof LiveRoute
   '/simulation': typeof SimulationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/camera' | '/dashboard' | '/simulation'
+  fullPaths: '/' | '/camera' | '/dashboard' | '/live' | '/simulation'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/camera' | '/dashboard' | '/simulation'
-  id: '__root__' | '/' | '/camera' | '/dashboard' | '/simulation'
+  to: '/' | '/camera' | '/dashboard' | '/live' | '/simulation'
+  id: '__root__' | '/' | '/camera' | '/dashboard' | '/live' | '/simulation'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CameraRoute: typeof CameraRoute
   DashboardRoute: typeof DashboardRoute
+  LiveRoute: typeof LiveRoute
   SimulationRoute: typeof SimulationRoute
 }
 
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/simulation'
       fullPath: '/simulation'
       preLoaderRoute: typeof SimulationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/live': {
+      id: '/live'
+      path: '/live'
+      fullPath: '/live'
+      preLoaderRoute: typeof LiveRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CameraRoute: CameraRoute,
   DashboardRoute: DashboardRoute,
+  LiveRoute: LiveRoute,
   SimulationRoute: SimulationRoute,
 }
 export const routeTree = rootRouteImport
