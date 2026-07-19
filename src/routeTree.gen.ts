@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SimulationRouteImport } from './routes/simulation'
+import { Route as ResearchRouteImport } from './routes/research'
 import { Route as LiveRouteImport } from './routes/live'
 import { Route as ExplainabilityRouteImport } from './routes/explainability'
 import { Route as DataRouteImport } from './routes/data'
@@ -21,6 +22,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const SimulationRoute = SimulationRouteImport.update({
   id: '/simulation',
   path: '/simulation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchRoute = ResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LiveRoute = LiveRouteImport.update({
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/data': typeof DataRoute
   '/explainability': typeof ExplainabilityRoute
   '/live': typeof LiveRoute
+  '/research': typeof ResearchRoute
   '/simulation': typeof SimulationRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/data': typeof DataRoute
   '/explainability': typeof ExplainabilityRoute
   '/live': typeof LiveRoute
+  '/research': typeof ResearchRoute
   '/simulation': typeof SimulationRoute
 }
 export interface FileRoutesById {
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/data': typeof DataRoute
   '/explainability': typeof ExplainabilityRoute
   '/live': typeof LiveRoute
+  '/research': typeof ResearchRoute
   '/simulation': typeof SimulationRoute
 }
 export interface FileRouteTypes {
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/data'
     | '/explainability'
     | '/live'
+    | '/research'
     | '/simulation'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/data'
     | '/explainability'
     | '/live'
+    | '/research'
     | '/simulation'
   id:
     | '__root__'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/data'
     | '/explainability'
     | '/live'
+    | '/research'
     | '/simulation'
   fileRoutesById: FileRoutesById
 }
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   DataRoute: typeof DataRoute
   ExplainabilityRoute: typeof ExplainabilityRoute
   LiveRoute: typeof LiveRoute
+  ResearchRoute: typeof ResearchRoute
   SimulationRoute: typeof SimulationRoute
 }
 
@@ -141,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/simulation'
       fullPath: '/simulation'
       preLoaderRoute: typeof SimulationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research': {
+      id: '/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof ResearchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/live': {
@@ -203,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   DataRoute: DataRoute,
   ExplainabilityRoute: ExplainabilityRoute,
   LiveRoute: LiveRoute,
+  ResearchRoute: ResearchRoute,
   SimulationRoute: SimulationRoute,
 }
 export const routeTree = rootRouteImport
