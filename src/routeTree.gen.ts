@@ -13,6 +13,7 @@ import { Route as TrafficRouteImport } from './routes/traffic'
 import { Route as SimulationRouteImport } from './routes/simulation'
 import { Route as ResearchRouteImport } from './routes/research'
 import { Route as LiveRouteImport } from './routes/live'
+import { Route as FleetRouteImport } from './routes/fleet'
 import { Route as ExplainabilityRouteImport } from './routes/explainability'
 import { Route as DataRouteImport } from './routes/data'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -38,6 +39,11 @@ const ResearchRoute = ResearchRouteImport.update({
 const LiveRoute = LiveRouteImport.update({
   id: '/live',
   path: '/live',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FleetRoute = FleetRouteImport.update({
+  id: '/fleet',
+  path: '/fleet',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExplainabilityRoute = ExplainabilityRouteImport.update({
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/data': typeof DataRoute
   '/explainability': typeof ExplainabilityRoute
+  '/fleet': typeof FleetRoute
   '/live': typeof LiveRoute
   '/research': typeof ResearchRoute
   '/simulation': typeof SimulationRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/data': typeof DataRoute
   '/explainability': typeof ExplainabilityRoute
+  '/fleet': typeof FleetRoute
   '/live': typeof LiveRoute
   '/research': typeof ResearchRoute
   '/simulation': typeof SimulationRoute
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/data': typeof DataRoute
   '/explainability': typeof ExplainabilityRoute
+  '/fleet': typeof FleetRoute
   '/live': typeof LiveRoute
   '/research': typeof ResearchRoute
   '/simulation': typeof SimulationRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/data'
     | '/explainability'
+    | '/fleet'
     | '/live'
     | '/research'
     | '/simulation'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/data'
     | '/explainability'
+    | '/fleet'
     | '/live'
     | '/research'
     | '/simulation'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/data'
     | '/explainability'
+    | '/fleet'
     | '/live'
     | '/research'
     | '/simulation'
@@ -154,6 +166,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   DataRoute: typeof DataRoute
   ExplainabilityRoute: typeof ExplainabilityRoute
+  FleetRoute: typeof FleetRoute
   LiveRoute: typeof LiveRoute
   ResearchRoute: typeof ResearchRoute
   SimulationRoute: typeof SimulationRoute
@@ -188,6 +201,13 @@ declare module '@tanstack/react-router' {
       path: '/live'
       fullPath: '/live'
       preLoaderRoute: typeof LiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fleet': {
+      id: '/fleet'
+      path: '/fleet'
+      fullPath: '/fleet'
+      preLoaderRoute: typeof FleetRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/explainability': {
@@ -242,6 +262,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   DataRoute: DataRoute,
   ExplainabilityRoute: ExplainabilityRoute,
+  FleetRoute: FleetRoute,
   LiveRoute: LiveRoute,
   ResearchRoute: ResearchRoute,
   SimulationRoute: SimulationRoute,
