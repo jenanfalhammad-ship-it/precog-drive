@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SimulationRouteImport } from './routes/simulation'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CameraRouteImport } from './routes/camera'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SimulationRoute = SimulationRouteImport.update({
@@ -23,6 +24,11 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CameraRoute = CameraRouteImport.update({
+  id: '/camera',
+  path: '/camera',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/camera': typeof CameraRoute
   '/dashboard': typeof DashboardRoute
   '/simulation': typeof SimulationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/camera': typeof CameraRoute
   '/dashboard': typeof DashboardRoute
   '/simulation': typeof SimulationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/camera': typeof CameraRoute
   '/dashboard': typeof DashboardRoute
   '/simulation': typeof SimulationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/simulation'
+  fullPaths: '/' | '/camera' | '/dashboard' | '/simulation'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/simulation'
-  id: '__root__' | '/' | '/dashboard' | '/simulation'
+  to: '/' | '/camera' | '/dashboard' | '/simulation'
+  id: '__root__' | '/' | '/camera' | '/dashboard' | '/simulation'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CameraRoute: typeof CameraRoute
   DashboardRoute: typeof DashboardRoute
   SimulationRoute: typeof SimulationRoute
 }
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/camera': {
+      id: '/camera'
+      path: '/camera'
+      fullPath: '/camera'
+      preLoaderRoute: typeof CameraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CameraRoute: CameraRoute,
   DashboardRoute: DashboardRoute,
   SimulationRoute: SimulationRoute,
 }
