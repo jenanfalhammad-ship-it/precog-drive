@@ -13,6 +13,7 @@ import { Route as SimulationRouteImport } from './routes/simulation'
 import { Route as LiveRouteImport } from './routes/live'
 import { Route as ExplainabilityRouteImport } from './routes/explainability'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ComparisonRouteImport } from './routes/comparison'
 import { Route as CameraRouteImport } from './routes/camera'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -36,6 +37,11 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComparisonRoute = ComparisonRouteImport.update({
+  id: '/comparison',
+  path: '/comparison',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CameraRoute = CameraRouteImport.update({
   id: '/camera',
   path: '/camera',
@@ -50,6 +56,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/camera': typeof CameraRoute
+  '/comparison': typeof ComparisonRoute
   '/dashboard': typeof DashboardRoute
   '/explainability': typeof ExplainabilityRoute
   '/live': typeof LiveRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/camera': typeof CameraRoute
+  '/comparison': typeof ComparisonRoute
   '/dashboard': typeof DashboardRoute
   '/explainability': typeof ExplainabilityRoute
   '/live': typeof LiveRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/camera': typeof CameraRoute
+  '/comparison': typeof ComparisonRoute
   '/dashboard': typeof DashboardRoute
   '/explainability': typeof ExplainabilityRoute
   '/live': typeof LiveRoute
@@ -77,6 +86,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/camera'
+    | '/comparison'
     | '/dashboard'
     | '/explainability'
     | '/live'
@@ -85,6 +95,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/camera'
+    | '/comparison'
     | '/dashboard'
     | '/explainability'
     | '/live'
@@ -93,6 +104,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/camera'
+    | '/comparison'
     | '/dashboard'
     | '/explainability'
     | '/live'
@@ -102,6 +114,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CameraRoute: typeof CameraRoute
+  ComparisonRoute: typeof ComparisonRoute
   DashboardRoute: typeof DashboardRoute
   ExplainabilityRoute: typeof ExplainabilityRoute
   LiveRoute: typeof LiveRoute
@@ -138,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/comparison': {
+      id: '/comparison'
+      path: '/comparison'
+      fullPath: '/comparison'
+      preLoaderRoute: typeof ComparisonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/camera': {
       id: '/camera'
       path: '/camera'
@@ -158,6 +178,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CameraRoute: CameraRoute,
+  ComparisonRoute: ComparisonRoute,
   DashboardRoute: DashboardRoute,
   ExplainabilityRoute: ExplainabilityRoute,
   LiveRoute: LiveRoute,
