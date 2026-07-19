@@ -12,13 +12,16 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrafficRouteImport } from './routes/traffic'
 import { Route as SimulationRouteImport } from './routes/simulation'
 import { Route as ResearchRouteImport } from './routes/research'
+import { Route as ReportRouteImport } from './routes/report'
 import { Route as LiveRouteImport } from './routes/live'
 import { Route as FleetRouteImport } from './routes/fleet'
 import { Route as ExplainabilityRouteImport } from './routes/explainability'
+import { Route as DriverRouteImport } from './routes/driver'
 import { Route as DataRouteImport } from './routes/data'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ComparisonRouteImport } from './routes/comparison'
 import { Route as CameraRouteImport } from './routes/camera'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TrafficRoute = TrafficRouteImport.update({
@@ -36,6 +39,11 @@ const ResearchRoute = ResearchRouteImport.update({
   path: '/research',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReportRoute = ReportRouteImport.update({
+  id: '/report',
+  path: '/report',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LiveRoute = LiveRouteImport.update({
   id: '/live',
   path: '/live',
@@ -49,6 +57,11 @@ const FleetRoute = FleetRouteImport.update({
 const ExplainabilityRoute = ExplainabilityRouteImport.update({
   id: '/explainability',
   path: '/explainability',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DriverRoute = DriverRouteImport.update({
+  id: '/driver',
+  path: '/driver',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DataRoute = DataRouteImport.update({
@@ -71,6 +84,11 @@ const CameraRoute = CameraRouteImport.update({
   path: '/camera',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -79,26 +97,32 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/camera': typeof CameraRoute
   '/comparison': typeof ComparisonRoute
   '/dashboard': typeof DashboardRoute
   '/data': typeof DataRoute
+  '/driver': typeof DriverRoute
   '/explainability': typeof ExplainabilityRoute
   '/fleet': typeof FleetRoute
   '/live': typeof LiveRoute
+  '/report': typeof ReportRoute
   '/research': typeof ResearchRoute
   '/simulation': typeof SimulationRoute
   '/traffic': typeof TrafficRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/camera': typeof CameraRoute
   '/comparison': typeof ComparisonRoute
   '/dashboard': typeof DashboardRoute
   '/data': typeof DataRoute
+  '/driver': typeof DriverRoute
   '/explainability': typeof ExplainabilityRoute
   '/fleet': typeof FleetRoute
   '/live': typeof LiveRoute
+  '/report': typeof ReportRoute
   '/research': typeof ResearchRoute
   '/simulation': typeof SimulationRoute
   '/traffic': typeof TrafficRoute
@@ -106,13 +130,16 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/camera': typeof CameraRoute
   '/comparison': typeof ComparisonRoute
   '/dashboard': typeof DashboardRoute
   '/data': typeof DataRoute
+  '/driver': typeof DriverRoute
   '/explainability': typeof ExplainabilityRoute
   '/fleet': typeof FleetRoute
   '/live': typeof LiveRoute
+  '/report': typeof ReportRoute
   '/research': typeof ResearchRoute
   '/simulation': typeof SimulationRoute
   '/traffic': typeof TrafficRoute
@@ -121,39 +148,48 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/camera'
     | '/comparison'
     | '/dashboard'
     | '/data'
+    | '/driver'
     | '/explainability'
     | '/fleet'
     | '/live'
+    | '/report'
     | '/research'
     | '/simulation'
     | '/traffic'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/camera'
     | '/comparison'
     | '/dashboard'
     | '/data'
+    | '/driver'
     | '/explainability'
     | '/fleet'
     | '/live'
+    | '/report'
     | '/research'
     | '/simulation'
     | '/traffic'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/camera'
     | '/comparison'
     | '/dashboard'
     | '/data'
+    | '/driver'
     | '/explainability'
     | '/fleet'
     | '/live'
+    | '/report'
     | '/research'
     | '/simulation'
     | '/traffic'
@@ -161,13 +197,16 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   CameraRoute: typeof CameraRoute
   ComparisonRoute: typeof ComparisonRoute
   DashboardRoute: typeof DashboardRoute
   DataRoute: typeof DataRoute
+  DriverRoute: typeof DriverRoute
   ExplainabilityRoute: typeof ExplainabilityRoute
   FleetRoute: typeof FleetRoute
   LiveRoute: typeof LiveRoute
+  ReportRoute: typeof ReportRoute
   ResearchRoute: typeof ResearchRoute
   SimulationRoute: typeof SimulationRoute
   TrafficRoute: typeof TrafficRoute
@@ -196,6 +235,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResearchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/report': {
+      id: '/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof ReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/live': {
       id: '/live'
       path: '/live'
@@ -215,6 +261,13 @@ declare module '@tanstack/react-router' {
       path: '/explainability'
       fullPath: '/explainability'
       preLoaderRoute: typeof ExplainabilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/driver': {
+      id: '/driver'
+      path: '/driver'
+      fullPath: '/driver'
+      preLoaderRoute: typeof DriverRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/data': {
@@ -245,6 +298,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CameraRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -257,13 +317,16 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   CameraRoute: CameraRoute,
   ComparisonRoute: ComparisonRoute,
   DashboardRoute: DashboardRoute,
   DataRoute: DataRoute,
+  DriverRoute: DriverRoute,
   ExplainabilityRoute: ExplainabilityRoute,
   FleetRoute: FleetRoute,
   LiveRoute: LiveRoute,
+  ReportRoute: ReportRoute,
   ResearchRoute: ResearchRoute,
   SimulationRoute: SimulationRoute,
   TrafficRoute: TrafficRoute,
