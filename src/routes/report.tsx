@@ -10,21 +10,29 @@ function Report() {
   const { lang } = useApp();
 
   const generate = () => {
-    const html = `<!doctype html><html><head><meta charset="utf-8"/><title>PRECOG AI Report</title>
+    const html = `<!doctype html><html><head><meta charset="utf-8"/><title>JDRI Report</title>
       <style>body{font-family:Inter,system-ui;max-width:780px;margin:40px auto;padding:20px;color:#0d1b3d}
       h1{color:#1e3a5f}.card{border:1px solid #d8e0ea;border-radius:12px;padding:16px;margin:12px 0}
       .bar{height:8px;background:#e8edf3;border-radius:4px;overflow:hidden}.bar>i{display:block;height:100%;background:linear-gradient(90deg,#1e3a5f,#2dd4a8)}
       table{width:100%;border-collapse:collapse}th,td{padding:8px;text-align:left;border-bottom:1px solid #e8edf3}</style></head>
-      <body><h1>PRECOG AI — Predictive Risk Report</h1>
+      <body><h1>JDRI — Predictive Driver Risk Report</h1>
       <p>Generated: ${new Date().toLocaleString()}</p>
       <div class="card"><h2>Overall Risk</h2><h1 style="color:#c44">82% HIGH</h1>
       <p>Elevated Engine RPM combined with abnormal airflow and reduced EAR indicate combined driver-fatigue and engine anomaly risk.</p></div>
       <div class="card"><h2>SHAP Contributions</h2>
-      ${["Engine RPM 42","Ambient Temp 31","EAR 24","MAR 19","Throttle 12"].map(x=>{const [n,v]=x.split(" ").reduce<[string,string]>((a,c,i,arr)=>i===arr.length-1?[a[0],c]:[a[0]+(a[0]?" ":"")+c,a[1]],["",""]);return `<div><b>${n}</b> +${v}%<div class="bar"><i style="width:${Math.min(100,+v*2)}%"></i></div></div>`}).join("")}</div>
-      <div class="card"><h2>Confusion Matrix (XGBoost)</h2>
-      <table><tr><th></th><th>Pred Low</th><th>Pred High</th></tr>
-      <tr><td>Actual Low</td><td>4821</td><td>112</td></tr>
-      <tr><td>Actual High</td><td>96</td><td>1437</td></tr></table></div>
+      ${["Engine RPM 42", "Ambient Temp 31", "EAR 24", "MAR 19", "Throttle 12"]
+        .map((x) => {
+          const [n, v] = x
+            .split(" ")
+            .reduce<[string, string]>(
+              (a, c, i, arr) =>
+                i === arr.length - 1 ? [a[0], c] : [a[0] + (a[0] ? " " : "") + c, a[1]],
+              ["", ""],
+            );
+          return `<div><b>${n}</b> +${v}%<div class="bar"><i style="width:${Math.min(100, +v * 2)}%"></i></div></div>`;
+        })
+        .join("")}</div>
+      <div class="card"><h2>Measured component results</h2><p>YawDD 94.12% accuracy · MRL 86.01% · DD HGB 80.79% LOSO · DriverSVT 87.91% with class-imbalance context.</p></div>
       <div class="card"><h2>Recommendations</h2><ul>
       <li>Enforce immediate driver rest break.</li>
       <li>Engine diagnostic scan within 24h.</li>
@@ -34,7 +42,7 @@ function Report() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "precog-ai-report.html";
+    a.download = "jdri-report.html";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -84,7 +92,10 @@ function Report() {
               {lang === "ar" ? "الصيغة" : "Format"}
             </h3>
             <p className="text-sm text-muted-foreground">
-              HTML → PDF (via browser print). {lang === "ar" ? "متوافق مع الطباعة ومختوم بشعار المنصة." : "Print-ready, PRECOG-branded."}
+              HTML → PDF (via browser print).{" "}
+              {lang === "ar"
+                ? "متوافق مع الطباعة وموسوم بهوية JDRI والباحثة جنان فتحي آل حماد."
+                : "Print-ready, JDRI-branded."}
             </p>
           </GlassCard>
         </div>

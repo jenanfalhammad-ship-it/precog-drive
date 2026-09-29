@@ -2,80 +2,78 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { GlassCard } from "@/components/GlassCard";
 import { useApp } from "@/lib/i18n";
-import { Database } from "lucide-react";
-
+import { Database, Eye, Activity, Truck, Users } from "lucide-react";
 export const Route = createFileRoute("/data")({ component: Data });
-
+const DATASETS = [
+  ["MRL Eye", "84,898 images · 37 subjects", "Eye open/closed", Eye],
+  ["YawDD", "320 videos · 47 drivers", "Yawning", Eye],
+  ["DD Database", "3,676 windows · 10 subjects", "EEG / EOG / ECG physiology", Activity],
+  ["DriverSVT", "76,701 rows · 436 drivers", "Vehicle telemetry · partial", Truck],
+  ["PSBD / JDRI", "Subject-level sources", "Vehicle + physiology research", Users],
+] as const;
 function Data() {
   const { lang } = useApp();
   return (
     <AppShell>
       <div className="p-4 md:p-8 max-w-6xl mx-auto space-y-6">
         <header>
-          <div className="text-xs uppercase tracking-widest text-muted-foreground">Dataset</div>
+          <div className="text-xs uppercase tracking-widest text-muted-foreground">
+            JDRI Data Lab
+          </div>
           <h1 className="font-display text-3xl md:text-4xl font-bold mt-1 flex items-center gap-3">
             <Database className="w-8 h-8" style={{ color: "var(--teal)" }} />
-            {lang === "ar" ? "استكشاف البيانات" : "Dataset exploration"}
+            {lang === "ar" ? "قواعد البيانات والإشارات" : "Datasets & signals"}
           </h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {lang === "ar"
+              ? "كل نموذج مدرّب ومقاس على مهمته وقاعدة بياناته؛ لا نخلط النتائج في رقم واحد."
+              : "Each model is trained and measured for its own task and dataset; results are not collapsed into one score."}
+          </p>
         </header>
-
-        <div className="grid md:grid-cols-4 gap-4">
-          {[
-            { label: lang === "ar" ? "إجمالي العينات" : "Total samples", val: "48,213" },
-            { label: lang === "ar" ? "الميزات" : "Features", val: "26" },
-            { label: lang === "ar" ? "الفئات" : "Classes", val: "4" },
-            { label: lang === "ar" ? "التوازن (بعد)" : "Balance (after)", val: "1:1:1:1" },
-          ].map((s) => (
-            <GlassCard key={s.label}>
-              <div className="text-xs uppercase text-muted-foreground">{s.label}</div>
-              <div className="mt-1 font-display text-3xl font-bold text-gradient">{s.val}</div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {DATASETS.map(([name, size, task, Icon]) => (
+            <GlassCard key={name} strong>
+              <Icon className="w-6 h-6 mb-3" style={{ color: "var(--teal)" }} />
+              <h3 className="font-display font-semibold">{name}</h3>
+              <p className="mt-1 text-sm text-foreground/80">{task}</p>
+              <p className="mt-2 text-xs text-muted-foreground">{size}</p>
             </GlassCard>
           ))}
         </div>
-
-        <div className="grid md:grid-cols-2 gap-5">
-          {[
-            { title: lang === "ar" ? "قبل Undersampling" : "Before Undersampling", data: [82, 8, 6, 4] },
-            { title: lang === "ar" ? "بعد Undersampling" : "After Undersampling", data: [25, 25, 25, 25] },
-          ].map((chart) => (
-            <GlassCard key={chart.title} strong>
-              <h3 className="font-display font-semibold mb-3">{chart.title}</h3>
-              <div className="flex items-end gap-3 h-40">
-                {chart.data.map((v, i) => (
-                  <div key={i} className="flex-1 flex flex-col items-center gap-2">
-                    <div
-                      className="w-full rounded-t-md bg-gradient-teal transition-all duration-500"
-                      style={{ height: `${v * 1.4}%`, boxShadow: "0 0 20px color-mix(in oklab, var(--teal) 40%, transparent)" }}
-                    />
-                    <div className="text-[10px] text-muted-foreground">{["LOW", "MOD", "HIGH", "CRIT"][i]}</div>
-                    <div className="text-xs font-semibold tabular-nums">{v}%</div>
-                  </div>
-                ))}
-              </div>
-            </GlassCard>
-          ))}
-        </div>
-
         <GlassCard>
           <h3 className="font-display font-semibold mb-3">
-            {lang === "ar" ? "أهم الميزات" : "Feature importance"}
+            {lang === "ar" ? "إشارات JDRI" : "JDRI signal stack"}
           </h3>
-          <div className="space-y-2">
-            {[
-              ["Engine RPM", 92], ["MAF", 84], ["EAR", 79], ["Ambient Temp", 71],
-              ["Throttle", 64], ["MAR", 58], ["Head Yaw", 51], ["Blink Rate", 46], ["Coolant Temp", 40],
-            ].map(([name, v]) => (
-              <div key={name as string}>
-                <div className="flex justify-between text-xs mb-1">
-                  <span>{name}</span>
-                  <span className="text-muted-foreground">{v}%</span>
-                </div>
-                <div className="h-1.5 rounded-full bg-muted/40 overflow-hidden">
-                  <div className="h-full bg-gradient-teal" style={{ width: `${v}%` }} />
-                </div>
+          <div className="grid md:grid-cols-4 gap-3">
+            {(lang === "ar"
+              ? [
+                  "الرؤية: إغلاق العين والتثاؤب والرمش ووضع الرأس",
+                  "الفسيولوجيا: EEG / EOG / ECG وHRV",
+                  "المركبة: السرعة والتسارع وTelemetry وOBD-II عند توفره",
+                  "السياق: خط الأساس الشخصي والوقت والرحلة والحمولة",
+                ]
+              : [
+                  "Vision: eye closure, yawning, blink and head pose",
+                  "Physiology: EEG / EOG / ECG and HRV",
+                  "Vehicle: speed, acceleration, telemetry and OBD-II when available",
+                  "Context: personal baseline, time, trip and cargo",
+                ]
+            ).map((x) => (
+              <div key={x} className="glass rounded-xl p-3 text-sm text-muted-foreground leading-6">
+                {x}
               </div>
             ))}
           </div>
+        </GlassCard>
+        <GlassCard>
+          <h3 className="font-display font-semibold">
+            {lang === "ar" ? "التوأم الرقمي" : "Digital twin state"}
+          </h3>
+          <p className="mt-2 text-sm text-muted-foreground leading-7">
+            {lang === "ar"
+              ? "يبني النظام خط أساس ديناميكيًا لكل سائق ويحدثه مع النوافذ الزمنية، ليقارن الحالة الحالية بالسلوك الطبيعي لذلك السائق بدل عتبة عامة ثابتة."
+              : "JDRI maintains a dynamic per-driver baseline updated by time windows, comparing current state with that driver’s normal pattern rather than a single global threshold."}
+          </p>
         </GlassCard>
       </div>
     </AppShell>

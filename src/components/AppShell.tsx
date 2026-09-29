@@ -1,8 +1,23 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useApp } from "@/lib/i18n";
 import {
-  Activity, Camera, Cpu, Database, FileBarChart, Gauge, Home, LineChart,
-  Moon, Radar, Shield, Sparkles, Sun, TrafficCone, Truck, User, Languages,
+  Activity,
+  Camera,
+  Cpu,
+  Database,
+  FileBarChart,
+  Gauge,
+  Home,
+  LineChart,
+  Moon,
+  Radar,
+  Shield,
+  Sparkles,
+  Sun,
+  TrafficCone,
+  Truck,
+  User,
+  Languages,
 } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -38,7 +53,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             <div>
               <div className="font-display font-bold text-sm text-gradient">{t("brand")}</div>
               <div className="text-[10px] text-muted-foreground leading-tight">
-                {lang === "ar" ? "حارس الطريق الذكي" : "Cognitive Road Guardian"}
+                {lang === "ar"
+                  ? "ذكاء السلامة الاستباقي للشاحنات"
+                  : "Predictive Driver Risk Intelligence"}
               </div>
             </div>
           </Link>
@@ -75,7 +92,13 @@ export function AppShell({ children }: { children: ReactNode }) {
             className="flex-1 glass rounded-lg py-2 text-xs flex items-center justify-center gap-1.5 hover:shadow-glow transition-all"
           >
             {theme === "dark" ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
-            {theme === "dark" ? (lang === "ar" ? "فاتح" : "Light") : lang === "ar" ? "داكن" : "Dark"}
+            {theme === "dark"
+              ? lang === "ar"
+                ? "فاتح"
+                : "Light"
+              : lang === "ar"
+                ? "داكن"
+                : "Dark"}
           </button>
         </div>
       </aside>

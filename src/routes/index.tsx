@@ -5,7 +5,15 @@ import { GlassCard } from "@/components/GlassCard";
 import { useApp } from "@/lib/i18n";
 import { useEffect, useState } from "react";
 import {
-  Activity, ArrowRight, Brain, Camera, Cpu, Eye, Gauge, ShieldCheck, Zap,
+  Activity,
+  ArrowRight,
+  Brain,
+  Camera,
+  Cpu,
+  Eye,
+  Gauge,
+  ShieldCheck,
+  Zap,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({ component: Landing });
@@ -19,12 +27,37 @@ function Landing() {
   }, []);
 
   const metrics = [
-    { key: "driver_status", val: 92 + (tick % 4), unit: "%", icon: <Eye className="w-3.5 h-3.5" /> },
-    { key: "vehicle_health", val: 87 + ((tick + 1) % 5), unit: "%", icon: <Cpu className="w-3.5 h-3.5" /> },
-    { key: "risk_score", val: 14 + ((tick * 3) % 9), unit: "%", icon: <Zap className="w-3.5 h-3.5" /> },
+    {
+      key: "driver_status",
+      val: 92 + (tick % 4),
+      unit: "%",
+      icon: <Eye className="w-3.5 h-3.5" />,
+    },
+    {
+      key: "vehicle_health",
+      val: 87 + ((tick + 1) % 5),
+      unit: "%",
+      icon: <Cpu className="w-3.5 h-3.5" />,
+    },
+    {
+      key: "risk_score",
+      val: 14 + ((tick * 3) % 9),
+      unit: "%",
+      icon: <Zap className="w-3.5 h-3.5" />,
+    },
     { key: "attention", val: 96 - (tick % 6), unit: "%", icon: <Brain className="w-3.5 h-3.5" /> },
-    { key: "engine_cond", val: 91 - (tick % 4), unit: "%", icon: <Gauge className="w-3.5 h-3.5" /> },
-    { key: "fatigue_prob", val: 8 + ((tick * 2) % 7), unit: "%", icon: <Activity className="w-3.5 h-3.5" /> },
+    {
+      key: "engine_cond",
+      val: 91 - (tick % 4),
+      unit: "%",
+      icon: <Gauge className="w-3.5 h-3.5" />,
+    },
+    {
+      key: "fatigue_prob",
+      val: 8 + ((tick * 2) % 7),
+      unit: "%",
+      icon: <Activity className="w-3.5 h-3.5" />,
+    },
   ];
 
   return (
@@ -42,11 +75,12 @@ function Landing() {
             <div className={dir === "rtl" ? "text-right" : "text-left"}>
               <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs">
                 <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse-glow" />
-                {lang === "ar" ? "منصة ذكاء اصطناعي متكاملة" : "Integrated AI Platform"}
+                {lang === "ar"
+                  ? "منصة ذكاء اصطناعي لسلامة الشاحنات"
+                  : "AI platform for safer trucking"}
               </div>
               <h1 className="mt-5 font-display text-5xl md:text-7xl font-bold leading-[1.05]">
-                <span className="text-gradient">PRECOG</span>
-                <span className="text-foreground"> AI</span>
+                <span className="text-gradient">JDRI</span>
               </h1>
               <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-xl">
                 {t("subtitle")}
@@ -72,7 +106,7 @@ function Landing() {
               <div className="mt-10 grid grid-cols-3 gap-3 max-w-lg">
                 {[
                   { icon: Camera, label: lang === "ar" ? "الرؤية الحاسوبية" : "Computer Vision" },
-                  { icon: Cpu, label: lang === "ar" ? "بيانات OBD-II" : "OBD-II Analytics" },
+                  { icon: Cpu, label: lang === "ar" ? "بيانات OBD-II" : "OBD-II Truck Telemetry" },
                   { icon: ShieldCheck, label: lang === "ar" ? "محرك المخاطر" : "Risk Engine" },
                 ].map(({ icon: Icon, label }) => (
                   <div key={label} className="glass rounded-xl p-3 text-center">
@@ -83,7 +117,7 @@ function Landing() {
               </div>
             </div>
 
-            {/* Right: 3D car + live panel */}
+            {/* Right: 3D smart truck + live panel */}
             <div className="relative">
               <Car3D className="w-full" />
               <div
@@ -134,30 +168,34 @@ function Landing() {
                 {
                   icon: Eye,
                   title: lang === "ar" ? "الرؤية الحاسوبية" : "Vision AI",
-                  desc: lang === "ar"
-                    ? "كشف النعاس والتثاؤب وميل الرأس عبر MediaPipe"
-                    : "Drowsiness, yawning & head-pose via MediaPipe.",
+                  desc:
+                    lang === "ar"
+                      ? "كشف النعاس والتثاؤب وميل الرأس عبر MediaPipe"
+                      : "Drowsiness, yawning & head-pose via MediaPipe.",
                 },
                 {
                   icon: Gauge,
-                  title: "OBD-II Analytics",
-                  desc: lang === "ar"
-                    ? "قراءة RPM و MAF ودرجة الحرارة والخانق مباشرة"
-                    : "RPM, MAF, ambient temp & throttle from the ECU.",
+                  title: "OBD-II Truck Telemetry",
+                  desc:
+                    lang === "ar"
+                      ? "قراءة RPM و MAF ودرجة الحرارة والخانق من الشاحنة"
+                      : "RPM, MAF, temperature and throttle from the truck ECU.",
                 },
                 {
                   icon: Brain,
                   title: lang === "ar" ? "قابلية التفسير" : "Explainable AI",
-                  desc: lang === "ar"
-                    ? "قيم SHAP توضح سبب كل تنبؤ"
-                    : "SHAP contributions justify every prediction.",
+                  desc:
+                    lang === "ar"
+                      ? "تفسير مساهمة كل إشارة في القرار"
+                      : "Signal contributions make every decision explainable.",
                 },
                 {
                   icon: ShieldCheck,
                   title: lang === "ar" ? "3 مستويات تنبيه" : "3-tier alerting",
-                  desc: lang === "ar"
-                    ? "السائق، الشركة، إدارة المرور"
-                    : "Driver, fleet company, traffic authority.",
+                  desc:
+                    lang === "ar"
+                      ? "السائق، الشركة، إدارة المرور"
+                      : "Driver, fleet company, traffic authority.",
                 },
               ].map(({ icon: Icon, title, desc }) => (
                 <GlassCard key={title} className="hover:shadow-glow hover:-translate-y-1">

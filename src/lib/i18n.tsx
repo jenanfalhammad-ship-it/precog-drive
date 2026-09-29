@@ -15,14 +15,14 @@ interface AppCtx {
 const Ctx = createContext<AppCtx | null>(null);
 
 const dict: Record<string, { ar: string; en: string }> = {
-  brand: { ar: "PRECOG AI", en: "PRECOG AI" },
+  brand: { ar: "JDRI", en: "JDRI" },
   tagline: {
-    ar: "منصة الذكاء الاصطناعي لتقييم مخاطر السائق والمركبة",
-    en: "AI-powered Driver & Vehicle Risk Intelligence",
+    ar: "ذكاء تنبؤي لسلامة سائقي الشاحنات والطرق",
+    en: "Predictive Driver Risk Intelligence for Safer Trucking",
   },
   subtitle: {
-    ar: "الحارس المعرفي التنبؤي للطريق والمحرك",
-    en: "Predictive Road & Engine Cognitive Guardian",
+    ar: "من الرصد اللحظي إلى القرار الاستباقي في سلامة الشاحنات",
+    en: "From live signals to proactive truck-safety decisions",
   },
   nav_home: { ar: "الرئيسية", en: "Home" },
   nav_dashboard: { ar: "لوحة التحكم", en: "Dashboard" },
@@ -72,24 +72,24 @@ const dict: Record<string, { ar: string; en: string }> = {
 export function AppProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(() => {
     if (typeof window === "undefined") return "ar";
-    return (localStorage.getItem("precog:lang") as Lang) || "ar";
+    return (localStorage.getItem("jdri:lang") as Lang) || "ar";
   });
   const [theme, setThemeState] = useState<Theme>(() => {
     if (typeof window === "undefined") return "dark";
-    return (localStorage.getItem("precog:theme") as Theme) || "dark";
+    return (localStorage.getItem("jdri:theme") as Theme) || "dark";
   });
 
   useEffect(() => {
     const root = document.documentElement;
     root.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
     root.setAttribute("lang", lang);
-    localStorage.setItem("precog:lang", lang);
+    localStorage.setItem("jdri:lang", lang);
   }, [lang]);
 
   useEffect(() => {
     const root = document.documentElement;
     root.classList.toggle("dark", theme === "dark");
-    localStorage.setItem("precog:theme", theme);
+    localStorage.setItem("jdri:theme", theme);
   }, [theme]);
 
   const t = (key: string) => dict[key]?.[lang] ?? key;
