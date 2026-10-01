@@ -15,7 +15,9 @@ import { Route as CameraRouteImport } from './routes/camera'
 import { Route as ComparisonRouteImport } from './routes/comparison'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DataRouteImport } from './routes/data'
+import { Route as DevicesRouteImport } from './routes/devices'
 import { Route as DriverRouteImport } from './routes/driver'
+import { Route as EventsRouteImport } from './routes/events'
 import { Route as ExplainabilityRouteImport } from './routes/explainability'
 import { Route as FleetRouteImport } from './routes/fleet'
 import { Route as LiveRouteImport } from './routes/live'
@@ -54,9 +56,19 @@ const DataRoute = DataRouteImport.update({
   path: '/data',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DevicesRoute = DevicesRouteImport.update({
+  id: '/devices',
+  path: '/devices',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DriverRoute = DriverRouteImport.update({
   id: '/driver',
   path: '/driver',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExplainabilityRoute = ExplainabilityRouteImport.update({
@@ -102,7 +114,9 @@ export interface FileRoutesByFullPath {
   '/comparison': typeof ComparisonRoute
   '/dashboard': typeof DashboardRoute
   '/data': typeof DataRoute
+  '/devices': typeof DevicesRoute
   '/driver': typeof DriverRoute
+  '/events': typeof EventsRoute
   '/explainability': typeof ExplainabilityRoute
   '/fleet': typeof FleetRoute
   '/live': typeof LiveRoute
@@ -118,7 +132,9 @@ export interface FileRoutesByTo {
   '/comparison': typeof ComparisonRoute
   '/dashboard': typeof DashboardRoute
   '/data': typeof DataRoute
+  '/devices': typeof DevicesRoute
   '/driver': typeof DriverRoute
+  '/events': typeof EventsRoute
   '/explainability': typeof ExplainabilityRoute
   '/fleet': typeof FleetRoute
   '/live': typeof LiveRoute
@@ -135,7 +151,9 @@ export interface FileRoutesById {
   '/comparison': typeof ComparisonRoute
   '/dashboard': typeof DashboardRoute
   '/data': typeof DataRoute
+  '/devices': typeof DevicesRoute
   '/driver': typeof DriverRoute
+  '/events': typeof EventsRoute
   '/explainability': typeof ExplainabilityRoute
   '/fleet': typeof FleetRoute
   '/live': typeof LiveRoute
@@ -153,7 +171,9 @@ export interface FileRouteTypes {
     | '/comparison'
     | '/dashboard'
     | '/data'
+    | '/devices'
     | '/driver'
+    | '/events'
     | '/explainability'
     | '/fleet'
     | '/live'
@@ -169,7 +189,9 @@ export interface FileRouteTypes {
     | '/comparison'
     | '/dashboard'
     | '/data'
+    | '/devices'
     | '/driver'
+    | '/events'
     | '/explainability'
     | '/fleet'
     | '/live'
@@ -185,7 +207,9 @@ export interface FileRouteTypes {
     | '/comparison'
     | '/dashboard'
     | '/data'
+    | '/devices'
     | '/driver'
+    | '/events'
     | '/explainability'
     | '/fleet'
     | '/live'
@@ -202,7 +226,9 @@ export interface RootRouteChildren {
   ComparisonRoute: typeof ComparisonRoute
   DashboardRoute: typeof DashboardRoute
   DataRoute: typeof DataRoute
+  DevicesRoute: typeof DevicesRoute
   DriverRoute: typeof DriverRoute
+  EventsRoute: typeof EventsRoute
   ExplainabilityRoute: typeof ExplainabilityRoute
   FleetRoute: typeof FleetRoute
   LiveRoute: typeof LiveRoute
@@ -256,11 +282,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DataRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/devices': {
+      id: '/devices'
+      path: '/devices'
+      fullPath: '/devices'
+      preLoaderRoute: typeof DevicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/driver': {
       id: '/driver'
       path: '/driver'
       fullPath: '/driver'
       preLoaderRoute: typeof DriverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/explainability': {
@@ -322,7 +362,9 @@ const rootRouteChildren: RootRouteChildren = {
   ComparisonRoute: ComparisonRoute,
   DashboardRoute: DashboardRoute,
   DataRoute: DataRoute,
+  DevicesRoute: DevicesRoute,
   DriverRoute: DriverRoute,
+  EventsRoute: EventsRoute,
   ExplainabilityRoute: ExplainabilityRoute,
   FleetRoute: FleetRoute,
   LiveRoute: LiveRoute,

@@ -95,8 +95,8 @@
 
   --navy: oklch(0.28 0.09 255);
   --navy-deep: oklch(0.18 0.07 260);
-  --teal: oklch(0.72 0.14 200);
-  --teal-glow: oklch(0.82 0.16 195);
+  --teal: oklch(0.72 0.14 265);
+  --teal-glow: oklch(0.84 0.12 315);
   --silver: oklch(0.85 0.015 240);
   --risk-low: oklch(0.7 0.17 155);
   --risk-mid: oklch(0.78 0.17 75);
@@ -149,8 +149,8 @@
 
   --navy: oklch(0.28 0.09 255);
   --navy-deep: oklch(0.13 0.04 260);
-  --teal: oklch(0.78 0.14 200);
-  --teal-glow: oklch(0.88 0.16 195);
+  --teal: oklch(0.76 0.14 265);
+  --teal-glow: oklch(0.87 0.12 315);
   --silver: oklch(0.82 0.02 240);
   --risk-low: oklch(0.75 0.19 155);
   --risk-mid: oklch(0.82 0.18 75);

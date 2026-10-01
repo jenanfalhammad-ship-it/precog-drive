@@ -1,0 +1,10 @@
+{
+  "routes": [
+    { "path": "/", "title": "ORBIT — ربط الأجهزة بعالم أفضل" },
+    { "path": "/devices", "title": "مركز الأجهزة" },
+    { "path": "/events", "title": "فعاليات ORBIT" },
+    { "path": "/camera", "title": "تحليل الجهاز بالذكاء الاصطناعي" },
+    { "path": "/dashboard", "title": "لوحة ORBIT" },
+    { "path": "/about", "title": "عن ORBIT" }
+  ]
+}

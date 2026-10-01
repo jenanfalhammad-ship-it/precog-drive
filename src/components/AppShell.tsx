@@ -11,24 +11,25 @@ import {
   LineChart,
   Moon,
   Radar,
-  Shield,
-  Sparkles,
   Sun,
   TrafficCone,
   Truck,
   User,
   Languages,
+  Boxes,
+  CalendarDays,
 } from "lucide-react";
 import type { ReactNode } from "react";
 
 const NAV = [
   { to: "/", icon: Home, key: "nav_home" },
+  { to: "/devices", icon: Boxes, key: "nav_devices" },
+  { to: "/events", icon: CalendarDays, key: "nav_events" },
   { to: "/dashboard", icon: Gauge, key: "nav_dashboard" },
   { to: "/simulation", icon: Activity, key: "nav_simulation" },
   { to: "/camera", icon: Camera, key: "nav_camera" },
   { to: "/live", icon: Radar, key: "nav_live" },
-  { to: "/explainability", icon: Sparkles, key: "nav_explain" },
-  { to: "/comparison", icon: LineChart, key: "nav_compare" },
+  { to: "/explainability", icon: LineChart, key: "nav_explain" },
   { to: "/data", icon: Database, key: "nav_data" },
   { to: "/research", icon: FileBarChart, key: "nav_research" },
   { to: "/traffic", icon: TrafficCone, key: "nav_traffic" },
@@ -41,21 +42,22 @@ const NAV = [
 export function AppShell({ children }: { children: ReactNode }) {
   const { t, lang, setLang, theme, setTheme, dir } = useApp();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-
   return (
     <div className="min-h-screen flex w-full" dir={dir}>
-      <aside className="w-64 shrink-0 border-e border-border/50 glass-strong sticky top-0 h-screen overflow-y-auto hidden md:flex flex-col">
+      <aside className="w-72 shrink-0 border-e border-border/50 glass-strong sticky top-0 h-screen overflow-y-auto hidden md:flex flex-col">
         <div className="p-5 border-b border-border/40">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-gradient-teal flex items-center justify-center shadow-glow">
-              <Shield className="w-5 h-5 text-primary-foreground" />
-            </div>
+          <Link to="/" className="flex items-center gap-3">
+            <img
+              src="/orbit-logo.jpg"
+              alt="ORBIT"
+              className="w-11 h-11 rounded-xl object-cover ring-1 ring-white/20"
+            />
             <div>
-              <div className="font-display font-bold text-sm text-gradient">{t("brand")}</div>
+              <div className="font-display font-bold text-lg tracking-[0.22em] text-gradient">
+                ORBIT
+              </div>
               <div className="text-[10px] text-muted-foreground leading-tight">
-                {lang === "ar"
-                  ? "ذكاء السلامة الاستباقي للشاحنات"
-                  : "Predictive Driver Risk Intelligence"}
+                {lang === "ar" ? "ربط الأجهزة بعالم أفضل" : "Connecting devices to a better world"}
               </div>
             </div>
           </Link>
@@ -67,11 +69,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link
                 key={to}
                 to={to}
-                className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${
-                  active
-                    ? "bg-gradient-teal text-primary-foreground shadow-glow"
-                    : "hover:bg-sidebar-accent text-sidebar-foreground/80 hover:text-sidebar-foreground"
-                }`}
+                className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${active ? "bg-gradient-teal text-primary-foreground shadow-glow" : "hover:bg-sidebar-accent text-sidebar-foreground/80 hover:text-sidebar-foreground"}`}
               >
                 <Icon className="w-4 h-4 shrink-0" />
                 <span className="truncate">{t(key)}</span>
@@ -79,6 +77,13 @@ export function AppShell({ children }: { children: ReactNode }) {
             );
           })}
         </nav>
+        <div className="px-4 pb-3 text-[10px] text-muted-foreground leading-relaxed">
+          {lang === "ar"
+            ? "عمل الطالبتان: جنان آل حماد وزينب العقيلي"
+            : "By students: Jenan Al-Hammad & Zainab Al-Oqaili"}
+          <br />
+          {lang === "ar" ? "الثانوية السادسة بالقطيف" : "Sixth Secondary School, Qatif"}
+        </div>
         <div className="p-3 border-t border-border/40 flex gap-2">
           <button
             onClick={() => setLang(lang === "ar" ? "en" : "ar")}
@@ -102,12 +107,12 @@ export function AppShell({ children }: { children: ReactNode }) {
           </button>
         </div>
       </aside>
-
-      {/* Mobile top bar */}
       <div className="md:hidden fixed top-0 inset-x-0 z-40 glass-strong px-4 py-3 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <Shield className="w-5 h-5" style={{ color: "var(--teal)" }} />
-          <span className="font-display font-bold text-sm text-gradient">{t("brand")}</span>
+          <img src="/orbit-logo.jpg" alt="ORBIT" className="w-8 h-8 rounded-lg object-cover" />
+          <span className="font-display font-bold text-sm tracking-[0.18em] text-gradient">
+            ORBIT
+          </span>
         </Link>
         <div className="flex gap-2">
           <button
@@ -124,21 +129,17 @@ export function AppShell({ children }: { children: ReactNode }) {
           </button>
         </div>
       </div>
-
       <main className="flex-1 min-w-0 pt-16 md:pt-0">
         {children}
-        {/* Mobile bottom nav (compact) */}
         <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 glass-strong border-t border-border/40 overflow-x-auto">
           <div className="flex gap-1 px-2 py-2 min-w-max">
-            {NAV.map(({ to, icon: Icon, key }) => {
+            {NAV.slice(0, 6).map(({ to, icon: Icon, key }) => {
               const active = pathname === to;
               return (
                 <Link
                   key={to}
                   to={to}
-                  className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-[10px] whitespace-nowrap ${
-                    active ? "bg-gradient-teal text-primary-foreground" : "text-muted-foreground"
-                  }`}
+                  className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-[10px] whitespace-nowrap ${active ? "bg-gradient-teal text-primary-foreground" : "text-muted-foreground"}`}
                 >
                   <Icon className="w-4 h-4" />
                   {t(key)}
